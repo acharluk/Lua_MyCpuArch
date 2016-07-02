@@ -6,7 +6,7 @@ function memory:new(name)
 
  	self.name = name
 
- 	print("Created memory: name = " .. name)
+ 	log(LOG_LEVEL.INFO, "Created memory: name = " .. name)
  	return self
  end
 

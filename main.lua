@@ -1,5 +1,5 @@
-require 'utils'
 require 'lib.globals'
+require 'utils'
 
 require 'parts.memory'
 
