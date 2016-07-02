@@ -1,5 +1,15 @@
 memory = {}
 
+function memory:new(name)
+ 	self = {}
+ 	setmetatable(self, memory)
+
+ 	self.name = name
+
+ 	print("Created memory: name = " .. name)
+ 	return self
+ end
+
 
 
 function memory.createBlank(file)
