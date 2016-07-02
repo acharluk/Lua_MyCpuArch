@@ -1,0 +1,1 @@
+MEMORY_SIZE = 0xFF
