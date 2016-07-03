@@ -1,4 +1,5 @@
 MEMORY_SIZE = 0xFF
+WORD_SIZE = 16 / 8
 
 --[[ Logger settings ]]--
 LOG_LEVEL = {

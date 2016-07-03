@@ -1,25 +1,31 @@
 memory = {}
 
-function memory:new(name, file)
- 	self = {}
- 	setmetatable(self, memory)
+function memory:new(obj,name, file)
+ 	object = {}
+ 	setmetatable(object, self)
+ 	self.__index = self
 
- 	self.name = name
- 	self.file = file
- 	self.data = {}
+ 	object.name = name
+ 	object.file = file
+ 	object.data = {}
 
  	log(LOG_LEVEL.INFO, "Created memory: name = " .. name)
- 	return self
+ 	return object
  end
 
 function memory:initialize()
 	local f_handle = io.open(self.file, 'rb')
 
-	-- Load each byte into data
-	for i = 0x0, MEMORY_SIZE do
-		local byte = f_handle:read(1)
-		-- Parse to binary
-		-- self.data[i] = parsed_byte
+	if f_handle then
+		-- Load each byte into data
+		for i = 0x0, MEMORY_SIZE do
+			local byte = string.byte(f_handle:read(1))
+			self.data[i] = byte
+		end
+	else
+		for i = 0x0, MEMORY_SIZE do
+			self.data[i] = 0x0
+		end
 	end
 
 
@@ -30,8 +36,7 @@ function memory:dump()
 	local f_handle = io.open(file, 'wb')
 
 	for i = 0x0, MEMORY_SIZE do
-		-- Parse to hex
-		-- f_handle:write( string.char(parsed_byte) )
+		f_handle:write( string.char(self.data[i]) )
 	end
 
 	f_handle:close()
