@@ -1,6 +1,6 @@
 memory = {}
 
-function memory:new(obj,name, file)
+function memory:new(name, file)
  	object = {}
  	setmetatable(object, self)
  	self.__index = self
