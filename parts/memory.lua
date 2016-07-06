@@ -14,6 +14,7 @@ function memory:new(name, file)
  end
 
 function memory:initialize()
+	log(LOG_LEVEL.INFO, self.name .. "->Init")
 	local f_handle = io.open(self.file, 'rb')
 
 	if f_handle then
@@ -33,6 +34,7 @@ function memory:initialize()
 end
 
 function memory:dump()
+	log(LOG_LEVEL.INFO, self.name .. "->Dump")
 	local f_handle = io.open(file, 'wb')
 
 	for i = 0x0, MEMORY_SIZE do
