@@ -33,6 +33,11 @@ function memory:initialize()
 	f_handle:close()
 end
 
+function memory:get(address)
+	--@TODO: Check address out of bounds
+	return self.data[address]
+end
+
 function memory:dump()
 	log(LOG_LEVEL.INFO, self.name .. "->Dump")
 	local f_handle = io.open(file, 'wb')

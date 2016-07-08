@@ -35,10 +35,12 @@ function ctrlunit:initialize()
 end
 
 function ctrlunit:nextInstruction()
-	log(LOG_LEVEL.DEBUG, "Next instruction")
-	print(":::", string.char(self.memory.data[self.program_counter]))
+	local byte = self.memory.data[self.program_counter]
+	log(LOG_LEVEL.DEBUG, "Next instruction -> " .. byte)
 
-	self.alu:add(0x1, 0x1)
+	if byte == 0x01 then
+		self.alu:add(self.memory.data[self.program_counter+1], self.memory.data[self.program_counter+2])
+	end
 
 	self.program_counter = self.program_counter + 1
 end
