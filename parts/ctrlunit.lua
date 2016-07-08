@@ -2,6 +2,8 @@ require 'parts.memory'
 require 'parts.register'
 require 'parts.alu'
 
+require 'lib.architecture'
+
 ctrlunit = {}
 
 function ctrlunit:new(name, mem_file)
@@ -36,24 +38,21 @@ end
 
 function ctrlunit:nextInstruction()
 	--[[ Variables for instruction simplicity ]]--
-	local byte = self.memory.data[self.program_counter]
+	byte = self.memory.data[self.program_counter]
 
 	-- Number of bytes the instruction needs
-	local n_bytes = 1
+	n_bytes = 1
 
-	local mem = self.memory
-	local pc = self.program_counter
-	local alu = self.alu
+	mem = self.memory
+	pc = self.program_counter
+	alu = self.alu
 
-	log(LOG_LEVEL.DEBUG, "Next instruction [" .. pc .. "]-> " .. byte)
+	-- Print next function
+	print("")
+	log(LOG_LEVEL.DEBUG, "Next instruction [" .. pc .. "]-> " .. architecture[byte].name)
 
-	if byte == 0x01 then
-		n_bytes = 3
-
-		-- Get the data where pc + 1 and pc + 2 are pointing
-		local v1, v2 = mem:getp(pc + 1), mem:getp(pc + 2)
-		alu:add(v1, v2)
-	end
-
+	-- Run function
+	architecture[byte].f()
+	
 	pc = pc + n_bytes
 end
