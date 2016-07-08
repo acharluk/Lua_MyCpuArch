@@ -23,7 +23,9 @@ myCU = ctrlunit:new("My CU", "data/memory.bin")
 myCU:initialize()
 
 myCU:nextInstruction()
+--[[
 myCU:nextInstruction()
 myCU:nextInstruction()
 myCU:nextInstruction()
 myCU:nextInstruction()
+]]--

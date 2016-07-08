@@ -19,5 +19,5 @@ end
 
 function register:set(data)
 	self.data = data
-	log(1, self.name .. "->SET: [" .. tostring(self.data) .. "]")
+	log(LOG_LEVEL.INFO, self.name .. "->SET: [" .. tostring(self.data) .. "]")
 end

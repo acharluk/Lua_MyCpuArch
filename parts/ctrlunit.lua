@@ -1,5 +1,6 @@
 require 'parts.memory'
 require 'parts.register'
+require 'parts.alu'
 
 ctrlunit = {}
 
@@ -15,6 +16,7 @@ function ctrlunit:new(name, mem_file)
 	object.memory = nil
 	object.register_a = nil
 	object.register_b = nil
+	object.alu = nil
 
 	log(LOG_LEVEL.INFO, "Created control unit: name = " .. name)
 	return object
@@ -27,12 +29,16 @@ function ctrlunit:initialize()
 
 	self.register_a = register:new(self.name .. ">Register A")
 	self.register_b = register:new(self.name .. ">Register B")
+
+	self.alu = alu:new("ALU")
+	self.alu:initialize()
 end
 
 function ctrlunit:nextInstruction()
 	log(LOG_LEVEL.DEBUG, "Next instruction")
 	print(":::", string.char(self.memory.data[self.program_counter]))
 
+	self.alu:add(0x1, 0x1)
 
 	self.program_counter = self.program_counter + 1
 end
