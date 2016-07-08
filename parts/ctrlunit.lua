@@ -49,10 +49,10 @@ function ctrlunit:nextInstruction()
 
 	-- Print next function
 	print("")
-	log(LOG_LEVEL.DEBUG, "Next instruction [" .. pc .. "]-> " .. architecture[byte].name)
+	log(LOG_LEVEL.INFO, "Next instruction [" .. pc .. "]-> " .. architecture[byte].name)
 
 	-- Run function
 	architecture[byte].f()
 	
-	pc = pc + n_bytes
+	self.program_counter = pc + n_bytes
 end

@@ -3,7 +3,8 @@ architecture = {
 	[0x00] = {
 	name = "HALT",
 	f = function()
-		-- STOP
+		CPU_RUNNING = false
+		log(LOG_LEVEL.INFO, "CPU stopped")
 	end
 	},
 

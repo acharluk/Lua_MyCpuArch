@@ -12,11 +12,17 @@ function cpu:new(name, mem_file)
 
 	object.cu = nil
 
+	log(LOG_LEVEL.INFO, "Created CPU: name = " .. name)
 	return object
 end
 
 function cpu:initialize()
 	log(LOG_LEVEL.INFO, self.name .. "->Init")
 
-	cu = ctrlunit:new("Main Control Unit", self.mem_file)
+	self.cu = ctrlunit:new("Main Control Unit", self.mem_file)
+	self.cu:initialize()
+end
+
+function cpu:clock()
+	self.cu:nextInstruction()
 end
