@@ -37,7 +37,7 @@ end
 function ctrlunit:nextInstruction()
 	--[[ Variables for instruction simplicity ]]--
 	local byte = self.memory.data[self.program_counter]
-	
+
 	-- Number of bytes the instruction needs
 	local n_bytes = 1
 
@@ -51,7 +51,7 @@ function ctrlunit:nextInstruction()
 		n_bytes = 3
 
 		-- Get the data where pc + 1 and pc + 2 are pointing
-		local v1, v2 = mem:get(mem:get(pc + 1)), mem:get(mem:get(pc + 2))
+		local v1, v2 = mem:getp(pc + 1), mem:getp(pc + 2)
 		alu:add(v1, v2)
 	end
 

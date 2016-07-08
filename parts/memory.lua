@@ -38,6 +38,16 @@ function memory:get(address)
 	return self.data[address]
 end
 
+-- Return data where the address is pointing
+function memory:getp(address)
+	return self:get(self:get(address))
+end
+
+function set(address, value)
+	--@TODO: Check address and value
+	self.data[address] = value
+end
+
 function memory:dump()
 	log(LOG_LEVEL.INFO, self.name .. "->Dump")
 	local f_handle = io.open(file, 'wb')
