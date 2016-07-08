@@ -1,7 +1,5 @@
-require 'lib.globals'
 require 'utils'
 
-require 'parts.memory'
+require 'parts.cpu'
 
-
-memory.createBlank("data/memory.bin")
+local CPU = cpu:new("Main CPU", "data/memory.bin")
