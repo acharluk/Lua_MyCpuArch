@@ -35,12 +35,25 @@ function ctrlunit:initialize()
 end
 
 function ctrlunit:nextInstruction()
+	--[[ Variables for instruction simplicity ]]--
 	local byte = self.memory.data[self.program_counter]
-	log(LOG_LEVEL.DEBUG, "Next instruction -> " .. byte)
+	
+	-- Number of bytes the instruction needs
+	local n_bytes = 1
+
+	local mem = self.memory
+	local pc = self.program_counter
+	local alu = self.alu
+
+	log(LOG_LEVEL.DEBUG, "Next instruction [" .. pc .. "]-> " .. byte)
 
 	if byte == 0x01 then
-		self.alu:add(self.memory.data[self.program_counter+1], self.memory.data[self.program_counter+2])
+		n_bytes = 3
+
+		-- Get the data where pc + 1 and pc + 2 are pointing
+		local v1, v2 = mem:get(mem:get(pc + 1)), mem:get(mem:get(pc + 2))
+		alu:add(v1, v2)
 	end
 
-	self.program_counter = self.program_counter + 1
+	pc = pc + n_bytes
 end
