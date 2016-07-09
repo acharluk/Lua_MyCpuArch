@@ -8,5 +8,3 @@ CPU:initialize()
 while CPU_RUNNING do
 	CPU:clock()
 end
-
-CPU:stop()
