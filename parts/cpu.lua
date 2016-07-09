@@ -26,3 +26,7 @@ end
 function cpu:clock()
 	self.cu:nextInstruction()
 end
+
+function cpu:stop()
+	self.cu.memory:dump()
+end
