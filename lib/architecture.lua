@@ -77,10 +77,21 @@ architecture = {
 		name = "STORE PC $$PC+1",
 		f = function()
 			n_bytes = 2
-			print("PC:" .. pc)
-			print("Storing at: " .. mem:get(pc + 1))
 			mem:set(mem:get(pc + 1), pc)
 		end
 	},
+
+	[0xA0] = {
+		name = "OUT $PC+1 SIZE",
+		f = function()
+			n_bytes = 3
+			local start = mem:get(pc + 1)
+			local num_bytes = mem:get(pc + 2)
+			for byte = 0, num_bytes - 1 do
+				io.stdout:write(string.char( mem:get(start + byte) ))
+			end
+		end
+	},
+
 
 }
