@@ -64,7 +64,22 @@ architecture = {
 		end
 	},
 
+	[0xE0] = {
+		name = "LOAD PC $$PC+1",
+		f = function()
+			n_bytes = 0
+			pc = mem:getp(pc + 1)
+		end
+	},
 
 
+
+	[0xF0] = {
+		name = "STORE PC $$PC+1",
+		f = function()
+			n_bytes = 2
+			mem:set(mem:getp(pc + 1), pc)
+		end
+	},
 
 }

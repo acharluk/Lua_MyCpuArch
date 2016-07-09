@@ -43,7 +43,7 @@ function memory:getp(address)
 	return self:get(self:get(address))
 end
 
-function set(address, value)
+function memory:set(address, value)
 	--@TODO: Check address and value
 	self.data[address] = value
 end
