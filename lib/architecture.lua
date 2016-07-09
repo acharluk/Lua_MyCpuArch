@@ -82,13 +82,35 @@ architecture = {
 	},
 
 	[0xA0] = {
-		name = "OUT $PC+1 SIZE",
+		name = "OUT $$PC+1 SIZE",
 		f = function()
 			n_bytes = 3
 			local start = mem:get(pc + 1)
 			local num_bytes = mem:get(pc + 2)
+
 			for byte = 0, num_bytes - 1 do
 				io.stdout:write(string.char( mem:get(start + byte) ))
+			end
+		end
+	},
+
+	[0xA1] = {
+		name = "IN $$PC+1 SIZE",
+		f = function()
+			n_bytes = 3
+			local start = mem:get(pc + 1)
+			local num_bytes = mem:get(pc + 2)
+			-- Read user input
+			local str = io.stdin:read()
+
+			for byte = 0, num_bytes - 1 do
+				local char = str:sub(byte + 1, byte + 1)
+				if char ~= "" then
+					char = string.byte(char)
+				else
+					char = 0x0
+				end
+				mem:set(start + byte, char)
 			end
 		end
 	},
