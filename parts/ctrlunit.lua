@@ -47,6 +47,9 @@ function ctrlunit:nextInstruction()
 	pc = self.program_counter
 	alu = self.alu
 
+	reg_a = self.register_a
+	reg_b = self.register_b
+
 	local instruction = architecture[byte]
 
 	if instruction then

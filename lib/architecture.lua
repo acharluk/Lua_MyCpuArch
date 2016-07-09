@@ -81,11 +81,35 @@ architecture = {
 		end
 	},
 
+	[0xF1] = {
+		name = "STORE REG A $$PC+1",
+		f = function()
+			n_bytes = 2
+			mem:set(mem:get(pc + 1), reg_a:get())
+		end
+	},
+
+	[0xF2] = {
+		name = "STORE REG B $$PC+1",
+		f = function()
+			n_bytes = 2
+			mem:set(mem:get(pc + 1), reg_a:get())
+		end
+	},
+
+	[0xF3] = {
+		name = "STORE REG ALU $$PC+1",
+		f = function()
+			n_bytes = 2
+			mem:set(mem:get(pc + 1), alu.alu_register:get())
+		end
+	},
+
 	[0xA0] = {
 		name = "OUT $$PC+1 SIZE",
 		f = function()
 			n_bytes = 3
-			local start = mem:get(pc + 1)
+			local start = mem:getp(pc + 1)
 			local num_bytes = mem:get(pc + 2)
 
 			for byte = 0, num_bytes - 1 do
@@ -94,11 +118,24 @@ architecture = {
 		end
 	},
 
+	[0xB0] = {
+		name = "OUT_RAW $$PC+1 SIZE",
+		f = function()
+			n_bytes = 3
+			local start = mem:get(pc + 1)
+			local num_bytes = mem:get(pc + 2)
+
+			for byte = 0, num_bytes - 1 do
+				io.stdout:write( mem:get(start + byte) )
+			end
+		end
+	},
+
 	[0xA1] = {
 		name = "IN $$PC+1 SIZE",
 		f = function()
 			n_bytes = 3
-			local start = mem:get(pc + 1)
+			local start = mem:getp(pc + 1)
 			local num_bytes = mem:get(pc + 2)
 			-- Read user input
 			local str = io.stdin:read()
@@ -110,6 +147,23 @@ architecture = {
 				else
 					char = 0x0
 				end
+				mem:set(start + byte, char)
+			end
+		end
+	},
+
+	[0xB1] = {
+		name = "IN_RAW $$PC+1 SIZE",
+		f = function()
+			n_bytes = 3
+			local start = mem:getp(pc + 1)
+			local num_bytes = mem:get(pc + 2)
+			-- Read user input
+			local str = io.stdin:read()
+
+			for byte = 0, num_bytes - 1 do
+				local char = tonumber(str, 16)
+				print("CHAR: " .. char)
 				mem:set(start + byte, char)
 			end
 		end
