@@ -50,7 +50,7 @@ end
 
 function memory:dump()
 	log(LOG_LEVEL.INFO, self.name .. "->Dump")
-	local f_handle = io.open(file, 'wb')
+	local f_handle = io.open(self.file, 'wb')
 
 	for i = 0x0, MEMORY_SIZE do
 		f_handle:write( string.char(self.data[i]) )

@@ -4,7 +4,6 @@ architecture = {
 		name = "HALT",
 		f = function()
 			CPU_RUNNING = false
-			log(LOG_LEVEL.INFO, "CPU stopped")
 		end
 	},
 
@@ -78,7 +77,9 @@ architecture = {
 		name = "STORE PC $$PC+1",
 		f = function()
 			n_bytes = 2
-			mem:set(mem:getp(pc + 1), pc)
+			print("PC:" .. pc)
+			print("Storing at: " .. mem:get(pc + 1))
+			mem:set(mem:get(pc + 1), pc)
 		end
 	},
 

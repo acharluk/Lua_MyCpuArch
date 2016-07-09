@@ -47,12 +47,19 @@ function ctrlunit:nextInstruction()
 	pc = self.program_counter
 	alu = self.alu
 
-	-- Print next function
-	print("")
-	log(LOG_LEVEL.INFO, "Next instruction [" .. pc .. "]-> " .. architecture[byte].name)
+	local instruction = architecture[byte]
 
-	-- Run function
-	architecture[byte].f()
-	
-	self.program_counter = pc + n_bytes
+	if instruction then
+		-- Print next function
+		print("")
+		log(LOG_LEVEL.INFO, "Next instruction [" .. pc .. "]-> " .. instruction.name)
+
+		-- Run function
+		instruction.f()
+		
+		self.program_counter = pc + n_bytes
+	else
+		log(LOG_LEVEL.CRITICAL, "Error: Instruction not recognized at address " .. pc)
+		CPU_RUNNING = false
+	end
 end
