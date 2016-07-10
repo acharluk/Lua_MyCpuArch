@@ -53,7 +53,7 @@ function memory:dump()
 	local f_handle = io.open(self.file, 'wb')
 
 	for i = 0x0, MEMORY_SIZE do
-		f_handle:write( string.char(self.data[i]) )
+		f_handle:write( string.char(self.data[i] % 0xFF) )
 	end
 
 	f_handle:close()

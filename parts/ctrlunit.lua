@@ -54,7 +54,7 @@ function ctrlunit:nextInstruction()
 
 	if instruction then
 		-- Print next function
-		print("")
+		--print("")
 		log(LOG_LEVEL.INFO, "Next instruction [" .. pc .. "]-> " .. instruction.name)
 
 		-- Run function

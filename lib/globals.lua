@@ -12,4 +12,4 @@ LOG_LEVEL = {
 	["DEBUG"]	 = 5
 }
 
-LOG_LEVEL_SEL = 5
+LOG_LEVEL_SEL = 2

@@ -27,7 +27,7 @@ function toBool(byte)
 	return out
 end
 
-function DecToBase(number, base)
+function decToBase(number, base)
 	local k, out = "0123456789ABCDEF", ""
 
 	while number > 0 do

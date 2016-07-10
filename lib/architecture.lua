@@ -115,6 +115,7 @@ architecture = {
 			for byte = 0, num_bytes - 1 do
 				io.stdout:write(string.char( mem:get(start + byte) ))
 			end
+			io.stdout:write("\n")
 		end
 	},
 
@@ -126,8 +127,9 @@ architecture = {
 			local num_bytes = mem:get(pc + 2)
 
 			for byte = 0, num_bytes - 1 do
-				io.stdout:write( mem:get(start + byte) )
+				io.stdout:write( decToBase(mem:get(start + byte), 16) )
 			end
+			io.stdout:write("\n")
 		end
 	},
 
@@ -163,7 +165,6 @@ architecture = {
 
 			for byte = 0, num_bytes - 1 do
 				local char = tonumber(str, 16)
-				print("CHAR: " .. char)
 				mem:set(start + byte, char)
 			end
 		end

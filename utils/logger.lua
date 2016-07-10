@@ -5,7 +5,7 @@ for k, v in pairs(LOG_LEVEL) do
 end
 
 function log(level, str)
-	if level <= LOG_LEVEL_SEL then
+	if level >= LOG_LEVEL_SEL then
 		print("[" .. levels[level] .. "] -> " .. str)
 	end
 end
