@@ -27,12 +27,13 @@ end
 function ctrlunit:initialize()
 	log(LOG_LEVEL.INFO, self.name .. "::Init")
 	self.memory = memory:new(self.name .. ">RAM", self.mem_file)
-	self.memory:initialize()
 
 	self.register_a = register:new(self.name .. ">Register A")
 	self.register_b = register:new(self.name .. ">Register B")
 
 	self.alu = alu:new("ALU")
+
+	self.memory:initialize()
 	self.alu:initialize()
 end
 
@@ -50,11 +51,12 @@ function ctrlunit:nextInstruction()
 	reg_a = self.register_a
 	reg_b = self.register_b
 
+	-- Load the instruction from table
 	local instruction = architecture[byte]
 
+	-- Check that the instruction is in the architecture table
 	if instruction then
 		-- Print next function
-		--print("")
 		log(LOG_LEVEL.INFO, "Next instruction [0x" .. decToBase(pc, 16) .. "] :: " .. instruction.name)
 
 		-- Run function
@@ -62,7 +64,6 @@ function ctrlunit:nextInstruction()
 		
 		self.program_counter = pc + n_bytes
 	else
-		log(LOG_LEVEL.CRITICAL, "Error: Instruction not recognized at address 0x" .. decToBase(pc, 16))
-		CPU_RUNNING = false
+		panic("Instruction not recognized at address 0x" .. decToBase(pc, 16))
 	end
 end

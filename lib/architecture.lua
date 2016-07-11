@@ -7,7 +7,7 @@ architecture = {
 	},
 
 	[0x01] = {
-		name = "ALU ADD",-- $$PC+1 $$PC+2",mem:getp(pc + 1), mem:getp(pc + 2)f
+		name = "ALU ADD",
 		f = function()
 			n_bytes = 1
 			alu:add()
@@ -15,50 +15,50 @@ architecture = {
 	},
 
 	[0x02] = {
-		name = "ALU SUB $$PC+1 $$PC+2",
+		name = "ALU SUB",
 		f = function()
-			n_bytes = 3
-			alu:sub(mem:getp(pc + 1), mem:getp(pc + 2))
+			n_bytes = 1
+			alu:sub()
 		end
 	},
 
 	[0x03] = {
-		name = "ALU MUL $$PC+1 $$PC+2",
+		name = "ALU MUL",
 		f = function()
-			n_bytes = 3
-			alu:mul(mem:getp(pc + 1), mem:getp(pc + 2))
+			n_bytes = 1
+			alu:mul()
 		end
 	},
 
 	[0x04] = {
-		name = "ALU DIV $$PC+1 $$PC+2",
+		name = "ALU DIV",
 		f = function()
-			n_bytes = 3
-			alu:div(mem:getp(pc + 1), mem:getp(pc + 2))
+			n_bytes = 1
+			alu:div()
 		end
 	},
 
 	[0x11] = {
-		name = "ALU OR $$PC+1 $$PC+2",
+		name = "ALU OR",
 		f = function()
-			n_bytes = 3
-			alu:bor(mem:getp(pc + 1), mem:getp(pc + 2))
+			n_bytes = 1
+			alu:bor()
 		end
 	},
 
 	[0x12] = {
-		name = "ALU AND $$PC+1 $$PC+2",
+		name = "ALU AND",
 		f = function()
-			n_bytes = 3
-			alu:band(mem:getp(pc + 1), mem:getp(pc + 2))
+			n_bytes = 1
+			alu:band()
 		end
 	},
 
 	[0x13] = {
-		name = "ALU XOR $$PC+1 $$PC+2",
+		name = "ALU XOR",
 		f = function()
-			n_bytes = 3
-			alu:bxor(mem:getp(pc + 1), mem:getp(pc + 2))
+			n_bytes = 1
+			alu:bxor()
 		end
 	},
 
@@ -94,6 +94,7 @@ architecture = {
 		end
 	},
 
+	-- No sense in loading a value to the ALU register
 	--[[--
 	[0xE3] = {
 		name = "LOAD REG ALU $$PC+1",
@@ -105,7 +106,7 @@ architecture = {
 	--]]--
 
 	[0xF0] = {
-		name = "STORE PC $PC+1",
+		name = "STORE PC $$PC+1",
 		f = function()
 			n_bytes = 2
 			mem:set(mem:get(pc + 1), pc)
@@ -113,7 +114,7 @@ architecture = {
 	},
 
 	[0xF1] = {
-		name = "STORE REG A $PC+1",
+		name = "STORE REG A $$PC+1",
 		f = function()
 			n_bytes = 2
 			mem:set(mem:get(pc + 1), reg_a:get())
@@ -121,7 +122,7 @@ architecture = {
 	},
 
 	[0xF2] = {
-		name = "STORE REG B $PC+1",
+		name = "STORE REG B $$PC+1",
 		f = function()
 			n_bytes = 2
 			mem:set(mem:get(pc + 1), reg_b:get())
@@ -129,7 +130,7 @@ architecture = {
 	},
 
 	[0xF3] = {
-		name = "STORE REG ALU $PC+1",
+		name = "STORE REG ALU $$PC+1",
 		f = function()
 			n_bytes = 2
 			mem:set(mem:get(pc + 1), alu.alu_register:get())

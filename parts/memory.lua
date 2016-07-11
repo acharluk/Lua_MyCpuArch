@@ -44,7 +44,13 @@ function memory:getp(address)
 end
 
 function memory:set(address, value)
-	--@TODO: Check address and value
+	if address < 0x00 or address > 0xFF then
+		panic("Address out of bounds: " .. decToBase(address, 16))
+	end
+	if value < 0x00 or value > 0xFF then
+		panic("Value out of bounds: " .. decToBase(value, 16))
+	end
+
 	self.data[address] = value
 end
 
@@ -60,6 +66,12 @@ function memory:dump()
 	end
 
 	f_handle:close()
+end
+
+function memory:show()
+	for i = 0x0, MEMORY_SIZE do
+		io.stdout:write(decToBase(self.data[i], 16) .. " ")
+	end
 end
 
 function memory.createBlank(file)

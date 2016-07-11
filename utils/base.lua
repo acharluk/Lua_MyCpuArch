@@ -36,7 +36,10 @@ function decToBase(number, base)
 	end
 
 	if out == "" then
-		out = "0"
+		out = "00"
+	end
+	if #out < 2 then
+		out = "0" .. out
 	end
 
 	return out

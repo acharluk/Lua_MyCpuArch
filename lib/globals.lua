@@ -1,8 +1,8 @@
 CPU_RUNNING = true
-STEP_MODE = false
+STEP_MODE 	= false
 
 MEMORY_SIZE = 0xFF
-WORD_SIZE = 16 / 8
+WORD_SIZE 	= 16 / 8
 
 --[[ Logger settings ]]--
 LOG_LEVEL = {
