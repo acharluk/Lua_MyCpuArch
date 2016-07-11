@@ -25,8 +25,8 @@ function ctrlunit:new(name, mem_file)
 end
 
 function ctrlunit:initialize()
-	log(LOG_LEVEL.INFO, self.name .. "->Init")
-	self.memory = memory:new(self.name .. ">Memory", self.mem_file)
+	log(LOG_LEVEL.INFO, self.name .. "::Init")
+	self.memory = memory:new(self.name .. ">RAM", self.mem_file)
 	self.memory:initialize()
 
 	self.register_a = register:new(self.name .. ">Register A")
@@ -55,14 +55,14 @@ function ctrlunit:nextInstruction()
 	if instruction then
 		-- Print next function
 		--print("")
-		log(LOG_LEVEL.INFO, "Next instruction [" .. pc .. "]-> " .. instruction.name)
+		log(LOG_LEVEL.INFO, "Next instruction [0x" .. decToBase(pc, 16) .. "] :: " .. instruction.name)
 
 		-- Run function
 		instruction.f()
 		
 		self.program_counter = pc + n_bytes
 	else
-		log(LOG_LEVEL.CRITICAL, "Error: Instruction not recognized at address " .. pc)
+		log(LOG_LEVEL.CRITICAL, "Error: Instruction not recognized at address 0x" .. decToBase(pc, 16))
 		CPU_RUNNING = false
 	end
 end

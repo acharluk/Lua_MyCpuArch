@@ -14,7 +14,7 @@ function memory:new(name, file)
  end
 
 function memory:initialize()
-	log(LOG_LEVEL.INFO, self.name .. "->Init")
+	log(LOG_LEVEL.INFO, self.name .. "::Init")
 	local f_handle = io.open(self.file, 'rb')
 
 	if f_handle then
@@ -49,11 +49,14 @@ function memory:set(address, value)
 end
 
 function memory:dump()
-	log(LOG_LEVEL.INFO, self.name .. "->Dump")
+	log(LOG_LEVEL.INFO, self.name .. "::Dump")
 	local f_handle = io.open(self.file, 'wb')
 
 	for i = 0x0, MEMORY_SIZE do
-		f_handle:write( string.char(self.data[i] % 0xFF) )
+		local b = self.data[i]
+		-- Avoid writing over one byte
+		if b > 0xFF then b = self.data[i] % 0xFF end
+		f_handle:write( string.char(b) )
 	end
 
 	f_handle:close()

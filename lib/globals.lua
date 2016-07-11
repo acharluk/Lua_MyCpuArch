@@ -1,4 +1,5 @@
 CPU_RUNNING = true
+STEP_MODE = false
 
 MEMORY_SIZE = 0xFF
 WORD_SIZE = 16 / 8
@@ -12,4 +13,4 @@ LOG_LEVEL = {
 	["DEBUG"]	 = 5
 }
 
-LOG_LEVEL_SEL = 2
+LOG_LEVEL_SEL = 1

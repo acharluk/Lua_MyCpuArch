@@ -35,5 +35,9 @@ function decToBase(number, base)
 		out = string.sub(k, d, d) .. out
 	end
 
+	if out == "" then
+		out = "0"
+	end
+
 	return out
 end

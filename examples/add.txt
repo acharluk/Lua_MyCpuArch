@@ -1,0 +1,27 @@
+Program: Add two numbers
+
+in number_1
+in number_2
+
+result = add number_1 number_2
+
+out result
+
+-------------------------------------
+-------------------------------------
+
+A0 B0 0F	; OUT "Enter number 1: " ($B0, 16)
+B1 F0 01	; IN_RAW $F0
+
+A0 C0 0F	; OUT "Enter number 2: " ($C0, 16)
+B1 F1 01	; IN_RAW $F1
+
+; $F2 <- ADD $F0 $F1
+E1 F0		; LOAD A $F0
+E2 F1		; LOAD B $F1
+01 			; ADD
+F3 F2		; STORE ALU_REG $F2
+
+A0 D0 08	; OUT "Result: " ($D0, 8)
+B0 F2 01	; OUT_RAW $F2
+FF			; HALT

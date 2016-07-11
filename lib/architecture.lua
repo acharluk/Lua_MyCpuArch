@@ -1,17 +1,16 @@
 architecture = {
 	
 	[0x00] = {
-		name = "HALT",
+		name = "NOP",
 		f = function()
-			CPU_RUNNING = false
 		end
 	},
 
 	[0x01] = {
-		name = "ALU ADD $$PC+1 $$PC+2",
+		name = "ALU ADD",-- $$PC+1 $$PC+2",mem:getp(pc + 1), mem:getp(pc + 2)f
 		f = function()
-			n_bytes = 3
-			alu:add(mem:getp(pc + 1), mem:getp(pc + 2))
+			n_bytes = 1
+			alu:add()
 		end
 	},
 
@@ -63,6 +62,14 @@ architecture = {
 		end
 	},
 
+	[0xEF] = {
+		name = "JMP $PC+1",
+		f = function()
+			n_bytes = 0
+			pc = mem:get(pc + 1)
+		end
+	},
+
 	[0xE0] = {
 		name = "LOAD PC $$PC+1",
 		f = function()
@@ -71,10 +78,34 @@ architecture = {
 		end
 	},
 
+	[0xE1] = {
+		name = "LOAD REG A $$PC+1",
+		f = function()
+			n_bytes = 2
+			reg_a:set( mem:getp(pc + 1) )
+		end
+	},
 
+	[0xE2] = {
+		name = "LOAD REG B $$PC+1",
+		f = function()
+			n_bytes = 2
+			reg_b:set( mem:getp(pc + 1) )
+		end
+	},
+
+	--[[--
+	[0xE3] = {
+		name = "LOAD REG ALU $$PC+1",
+		f = function()
+			n_bytes = 2
+			alu.alu_register:set( mem:getp(pc + 1) )
+		end
+	},
+	--]]--
 
 	[0xF0] = {
-		name = "STORE PC $$PC+1",
+		name = "STORE PC $PC+1",
 		f = function()
 			n_bytes = 2
 			mem:set(mem:get(pc + 1), pc)
@@ -82,7 +113,7 @@ architecture = {
 	},
 
 	[0xF1] = {
-		name = "STORE REG A $$PC+1",
+		name = "STORE REG A $PC+1",
 		f = function()
 			n_bytes = 2
 			mem:set(mem:get(pc + 1), reg_a:get())
@@ -90,15 +121,15 @@ architecture = {
 	},
 
 	[0xF2] = {
-		name = "STORE REG B $$PC+1",
+		name = "STORE REG B $PC+1",
 		f = function()
 			n_bytes = 2
-			mem:set(mem:get(pc + 1), reg_a:get())
+			mem:set(mem:get(pc + 1), reg_b:get())
 		end
 	},
 
 	[0xF3] = {
-		name = "STORE REG ALU $$PC+1",
+		name = "STORE REG ALU $PC+1",
 		f = function()
 			n_bytes = 2
 			mem:set(mem:get(pc + 1), alu.alu_register:get())
@@ -106,10 +137,10 @@ architecture = {
 	},
 
 	[0xA0] = {
-		name = "OUT $$PC+1 SIZE",
+		name = "OUT $PC+1 SIZE",
 		f = function()
 			n_bytes = 3
-			local start = mem:getp(pc + 1)
+			local start = mem:get(pc + 1)
 			local num_bytes = mem:get(pc + 2)
 
 			for byte = 0, num_bytes - 1 do
@@ -119,25 +150,11 @@ architecture = {
 		end
 	},
 
-	[0xB0] = {
-		name = "OUT_RAW $$PC+1 SIZE",
+	[0xA1] = {
+		name = "IN $PC+1 SIZE",
 		f = function()
 			n_bytes = 3
 			local start = mem:get(pc + 1)
-			local num_bytes = mem:get(pc + 2)
-
-			for byte = 0, num_bytes - 1 do
-				io.stdout:write( decToBase(mem:get(start + byte), 16) )
-			end
-			io.stdout:write("\n")
-		end
-	},
-
-	[0xA1] = {
-		name = "IN $$PC+1 SIZE",
-		f = function()
-			n_bytes = 3
-			local start = mem:getp(pc + 1)
 			local num_bytes = mem:get(pc + 2)
 			-- Read user input
 			local str = io.stdin:read()
@@ -154,11 +171,25 @@ architecture = {
 		end
 	},
 
-	[0xB1] = {
-		name = "IN_RAW $$PC+1 SIZE",
+	[0xB0] = {
+		name = "OUT_RAW $PC+1 SIZE",
 		f = function()
 			n_bytes = 3
-			local start = mem:getp(pc + 1)
+			local start = mem:get(pc + 1)
+			local num_bytes = mem:get(pc + 2)
+
+			for byte = 0, num_bytes - 1 do
+				io.stdout:write( decToBase(mem:get(start + byte), 16) )
+			end
+			io.stdout:write("\n")
+		end
+	},
+
+	[0xB1] = {
+		name = "IN_RAW $PC+1 SIZE",
+		f = function()
+			n_bytes = 3
+			local start = mem:get(pc + 1)
 			local num_bytes = mem:get(pc + 2)
 			-- Read user input
 			local str = io.stdin:read()
@@ -170,5 +201,20 @@ architecture = {
 		end
 	},
 
+	[0xC0] = {
+		name = "MOV $$PC+1 $$PC+2",
+		f = function()
+			n_bytes = 3
+			local byte = mem:getp(pc + 1)
+			mem:set(mem:get(pc + 2), byte)
+		end
+	},
+
+	[0xFF] = {
+		name = "HALT",
+		f = function()
+			CPU_RUNNING = false
+		end
+	}
 
 }

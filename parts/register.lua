@@ -13,11 +13,11 @@ function register:new(name)
 end
 
 function register:get()
-	log(LOG_LEVEL.INFO, self.name .. "->GET: [" .. tostring(self.data) .. "]")
+	log(LOG_LEVEL.INFO, self.name .. "::GET: [" .. tostring(self.data) .. "]")
 	return self.data
 end
 
 function register:set(data)
 	self.data = data
-	log(LOG_LEVEL.INFO, self.name .. "->SET: [" .. tostring(self.data) .. "]")
+	log(LOG_LEVEL.INFO, self.name .. "::SET: [" .. tostring(self.data) .. "]")
 end

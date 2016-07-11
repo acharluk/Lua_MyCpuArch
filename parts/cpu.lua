@@ -17,10 +17,11 @@ function cpu:new(name, mem_file)
 end
 
 function cpu:initialize()
-	log(LOG_LEVEL.INFO, self.name .. "->Init")
+	log(LOG_LEVEL.INFO, self.name .. "::Init")
 
-	self.cu = ctrlunit:new("Main Control Unit", self.mem_file)
+	self.cu = ctrlunit:new("Control Unit", self.mem_file)
 	self.cu:initialize()
+	print("")
 end
 
 function cpu:clock()

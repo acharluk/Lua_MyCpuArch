@@ -16,56 +16,43 @@ function alu:new(name)
 end
 
 function alu:initialize()
-	log(LOG_LEVEL.INFO, self.name .. "->Init")
+	log(LOG_LEVEL.INFO, self.name .. "::Init")
 	self.alu_register = register:new(self.name .. ">Register ALU")
-
 end
 
-function alu:add(num_1, num_2)
-	-- This is really WIP
-	self.alu_register:set(num_1 + num_2)
+--[[ ALU functions ]]--
 
-	log(LOG_LEVEL.INFO, self.name .. "->Add: " .. num_1 .. " + " .. num_2 .. " = " .. self.alu_register:get())
+function alu:add()
+	self.alu_register:set(reg_a:get() + reg_b:get())
+	log(LOG_LEVEL.INFO, self.name .. "::Add: " .. reg_a:get() .. " + " .. reg_b:get() .. " = " .. self.alu_register:get())
 end
 
-function alu:sub(num_1, num_2)
-	-- This is really WIP
-	self.alu_register:set(num_1 - num_2)
-
-	log(LOG_LEVEL.INFO, self.name .. "->Sub: " .. num_1 .. " - " .. num_2 .. " = " .. self.alu_register:get())
+function alu:sub()
+	self.alu_register:set(reg_a:get() - reg_b:get())
+	log(LOG_LEVEL.INFO, self.name .. "::Sub: " .. reg_a:get() .. " - " .. reg_b:get() .. " = " .. self.alu_register:get())
 end
 
-function alu:mul(num_1, num_2)
-	-- This is really WIP
-	self.alu_register:set(num_1 * num_2)
-
-	log(LOG_LEVEL.INFO, self.name .. "->Sub: " .. num_1 .. " * " .. num_2 .. " = " .. self.alu_register:get())
+function alu:mul()
+	self.alu_register:set(reg_a:get() * reg_b:get())
+	log(LOG_LEVEL.INFO, self.name .. "::Sub: " .. reg_a:get() .. " * " .. reg_b:get() .. " = " .. self.alu_register:get())
 end
 
-function alu:div(num_1, num_2)
-	-- This is really WIP
-	self.alu_register:set(math.floor(num_1 / num_2))
-
-	log(LOG_LEVEL.INFO, self.name .. "->Div: " .. num_1 .. " / " .. num_2 .. " = " .. self.alu_register:get())
+function alu:div()
+	self.alu_register:set(math.floor(reg_a:get() / reg_b:get()))
+	log(LOG_LEVEL.INFO, self.name .. "::Div: " .. reg_a:get() .. " / " .. reg_b:get() .. " = " .. self.alu_register:get())
 end
 
-function alu:bor(num_1, num_2)
-	-- This is really WIP
-	self.alu_register:set(bit32.bor(num_1, num_2))
-
-	log(LOG_LEVEL.INFO, self.name .. "->Or: " .. num_1 .. " or " .. num_2 .. " = " .. self.alu_register:get())
+function alu:bor()
+	self.alu_register:set(reg_a:get() | reg_b:get())
+	log(LOG_LEVEL.INFO, self.name .. "::Or: " .. reg_a:get() .. " or " .. reg_b:get() .. " = " .. self.alu_register:get())
 end
 
-function alu:band(num_1, num_2)
-	-- This is really WIP
-	self.alu_register:set(bit32.band(num_1, num_2))
-
-	log(LOG_LEVEL.INFO, self.name .. "->And: " .. num_1 .. " and " .. num_2 .. " = " .. self.alu_register:get())
+function alu:band()
+	self.alu_register:set(reg_a:get() & reg_b:get())
+	log(LOG_LEVEL.INFO, self.name .. "::And: " .. reg_a:get() .. " and " .. reg_b:get() .. " = " .. self.alu_register:get())
 end
 
-function alu:bxor(num_1, num_2)
-	-- This is really WIP
-	self.alu_register:set(bit32.bxor(num_1, num_2))
-
-	log(LOG_LEVEL.INFO, self.name .. "->Xor: " .. num_1 .. " xor " .. num_2 .. " = " .. self.alu_register:get())
+function alu:bxor()
+	self.alu_register:set(reg_a:get() ~ reg_b:get())
+	log(LOG_LEVEL.INFO, self.name .. "::Xor: " .. reg_a:get() .. " xor " .. reg_b:get() .. " = " .. self.alu_register:get())
 end

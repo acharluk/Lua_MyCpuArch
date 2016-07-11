@@ -2,11 +2,20 @@ require 'utils'
 
 require 'parts.cpu'
 
-local CPU = cpu:new("Main CPU", "data/memory.bin")
+local CPU = cpu:new("CPU", "data/memory.bin")
 CPU:initialize()
 
-while CPU_RUNNING do
-	CPU:clock()
+if STEP_MODE then
+	while CPU_RUNNING do
+		io.stdout:write("\nNext step: ")
+		io.stdin:read()
+
+		CPU:clock()
+	end
+else
+	while CPU_RUNNING do
+		CPU:clock()
+	end
 end
 
 CPU:stop()
