@@ -11,12 +11,6 @@ function toBin(byte)
 	return out
 end
 
---[[
-function toHex(byte)
-	-- body
-end
---]]--
-
 function toBool(byte)
 	local out = {}
 

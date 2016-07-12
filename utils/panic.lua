@@ -2,10 +2,11 @@ function panic(reason)
 	-- Stop CPU clock
 	CPU_RUNNING = false
 
-	-- Disable logging and step mode
+	-- Save logging level
 	local lls = LOG_LEVEL_SEL
+	
+	-- Disable logging and step mode
 	LOG_LEVEL_SEL = 6
-	local sm = STEP_MODE
 	STEP_MODE 	= false
 
 	-- Print reason
@@ -24,7 +25,6 @@ function panic(reason)
 
 	io.stdout:write("\n________________________________________________________\n\n")
 
-	-- Enable logging and step mode
+	-- Enable logging
 	LOG_LEVEL_SEL = lls
-	STEP_MODE = sm
 end

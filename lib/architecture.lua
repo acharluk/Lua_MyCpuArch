@@ -6,6 +6,9 @@ architecture = {
 		end
 	},
 
+
+	--[[ ALU functions ]]--
+
 	[0x01] = {
 		name = "ALU ADD",
 		f = function()
@@ -62,6 +65,9 @@ architecture = {
 		end
 	},
 
+
+	--[[ Register functions ]]--
+
 	[0xEF] = {
 		name = "JMP $PC+1",
 		f = function()
@@ -94,17 +100,6 @@ architecture = {
 		end
 	},
 
-	-- No sense in loading a value to the ALU register
-	--[[--
-	[0xE3] = {
-		name = "LOAD REG ALU $$PC+1",
-		f = function()
-			n_bytes = 2
-			alu.alu_register:set( mem:getp(pc + 1) )
-		end
-	},
-	--]]--
-
 	[0xF0] = {
 		name = "STORE PC $$PC+1",
 		f = function()
@@ -136,6 +131,17 @@ architecture = {
 			mem:set(mem:get(pc + 1), alu.alu_register:get())
 		end
 	},
+
+	[0xC0] = {
+		name = "MOV $$PC+1 $$PC+2",
+		f = function()
+			n_bytes = 3
+			local byte = mem:getp(pc + 1)
+			mem:set(mem:get(pc + 2), byte)
+		end
+	},
+
+	--[[ I/O functions ]]--
 
 	[0xA0] = {
 		name = "OUT $PC+1 SIZE",
@@ -202,14 +208,6 @@ architecture = {
 		end
 	},
 
-	[0xC0] = {
-		name = "MOV $$PC+1 $$PC+2",
-		f = function()
-			n_bytes = 3
-			local byte = mem:getp(pc + 1)
-			mem:set(mem:get(pc + 2), byte)
-		end
-	},
 
 	[0xFF] = {
 		name = "HALT",
