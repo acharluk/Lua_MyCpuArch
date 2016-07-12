@@ -18,6 +18,9 @@ function register:get()
 end
 
 function register:set(data)
+	if data < 0x00 or data > 0xFF then
+		panic("Value out of bounds [" .. data .. "] on register " .. self.name)
+	end
 	self.data = data
 	log(LOG_LEVEL.INFO, self.name .. "::SET: [" .. tostring(self.data) .. "]")
 end
