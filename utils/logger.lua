@@ -6,6 +6,6 @@ end
 
 function log(level, str)
 	if level >= LOG_LEVEL_SEL then
-		print("[" .. levels[level] .. "] -> " .. str)
+		io.stdout:write("[" .. levels[level] .. "] -> " .. str .. "\n")
 	end
 end

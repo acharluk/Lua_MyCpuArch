@@ -21,7 +21,7 @@ function cpu:initialize()
 
 	self.cu = ctrlunit:new("Control Unit", self.mem_file)
 	self.cu:initialize()
-	print("")
+	io.stdout:write("\n")
 end
 
 function cpu:clock()

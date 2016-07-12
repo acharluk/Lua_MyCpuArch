@@ -34,20 +34,18 @@ function memory:initialize()
 end
 
 function memory:get(address)
-	--@TODO: Check address out of bounds
 	return self.data[address]
 end
 
 -- Return data where the address is pointing
 function memory:getp(address)
-	return self:get(self:get(address))
+	return self.data[self.data[address]]
 end
 
 function memory:set(address, value)
 	if address < 0x00 or address > 0xFF then
 		panic("Address out of bounds: " .. decToBase(address, 16))
-	end
-	if value < 0x00 or value > 0xFF then
+	elseif value < 0x00 or value > 0xFF then
 		panic("Value out of bounds: " .. decToBase(value, 16))
 	end
 
