@@ -1,5 +1,5 @@
 CPU_RUNNING = true
-STEP_MODE 	= false
+STEP_MODE 	= true
 
 MEMORY_SIZE = 0xFF
 WORD_SIZE 	= 16 / 8
